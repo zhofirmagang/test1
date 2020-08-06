@@ -8,5 +8,5 @@
     $result = mysqli_query($conn, "DELETE FROM employee WHERE employee_id=$employee_id");
 
     //redirecting to the display page (index.php in our case)
-    header("Location:payroll.php#about");
+    header("Location:delete1.php");
 ?>
