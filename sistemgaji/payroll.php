@@ -3,9 +3,7 @@
         <title>Sistem Informasi Gaji</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-
         <link rel="stylesheet" href="assets/css/main.css" />
-
     </head>
 
     <body>
@@ -38,16 +36,14 @@
             <div class="bottom">
 
                 <!-- Social Icons -->
-                <!-- <ul class="icons">
+                <ul class="icons">
                     <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
                     <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-                    <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+                    <li><a href="https://github.com/zhofirmagang/test1" class="icon fa-github"><span class="label">Github</span></a></li>
                     <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
                     <li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
-                </ul> -->
-
+                </ul>
             </div>
-
         </div>
 
         <!-- Main -->
@@ -58,14 +54,13 @@
                 <div class="container">
 
                     <header>
-                        <h2 class="alt">Selamat Datang di <strong>Sistem Manajemen Gaji</strong>
-                        <p>CV. Seven Inc</p>
+                        <h2 class="alt">Selamat Datang di <strong>Sistem Manajemen Gaji</strong> <br /> 2020</h2>
+                        <p>Cv.Seven Inc</p>
                     </header>
 
                     <footer>
                         <a href="#portfolio" class="button scrolly">Karyawan</a>
                     </footer>
-
                 </div>
             </section>
 
@@ -105,10 +100,8 @@
                                     <h3>Ubah</h3>
                                 </header>
                             </article>
-
                         </div>
                     </div>
-
                 </div>
             </section>
 
@@ -122,31 +115,28 @@
 
                     <p>-</p>
                     <?php
-                        //including the database connection file
                         include("connection.php");
                         $result = mysqli_query($conn, "SELECT * FROM employee ORDER BY employee_id ASC"); 
-                        // using mysqli_query instead
-                        //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array 
-                        echo 
-                            "<table>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>E-mail</th>
-                                    <th>Kota</th>
-                                    <th>Tanggal Masuk</th>
-                                    <th>Gaji Pokok</th>
+                        echo "<table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>E-mail</th>
+                                <th>Kota</th>
+                                <th>Tanggal Masuk</th>
+                                <th>Gaji Pokok</th>
+                            </tr>";
+                            while($res = mysqli_fetch_array($result)) { 		
+                                echo "<tr>
+                                    <td>" . $res["employee_id"]. "</td>
+                                    <td>" . $res["name"]. "</td>
+                                    <td> " . $res["email"]. "</td>
+                                    <td> " . $res["city"]. "</td>
+                                    <td> " . $res["join_date"]. "</td>
+                                    <td> " . "Rp ". $res["annual_basic_pay"]. "</td>
                                 </tr>";
-                                while($res = mysqli_fetch_array($result)) {
-                                    echo "<tr><td>" . $res["employee_id"]. "</td><td>" . $res["name"]. "</td><td> " . $res["email"]. "</td><td> " . $res["city"]. "</td><td> " . $res["join_date"]. "</td><td> " . "Rp ". $res["annual_basic_pay"]. "</td></tr>";
-                                }
-                                echo 
-                            "</table>";
-                        // 	echo "<td>".$res['employee_id']."</td>"."&nbsp";
-                        // 	echo "<td>".$res['name']."</td>"."&nbsp";
-                        // 	echo "<td>".$res['email']."</td>"."<br>";	
-                        // 	echo "<td><a href=\"edit.php?employee_id=$res[employee_id]\">Edit</a> | <a href=\"delete.php?id=$res[employee_id]\" onClick=\"return confirm('Are you sure you want to delete?')\">Delete</a></td>";		
-                        // }
+                            }
+                        echo "</table>";
                     ?>
                 </div>
             </section>
@@ -154,58 +144,65 @@
             <!-- Contact -->
             <section id="contact" class="four">
                 <div class="container">
-
                     <header>
                         <h2>Slip Gaji</h2>
                     </header>
+
                     <?php
-                        //including the database connection file
                         include("connection.php");
-                        $result = mysqli_query($conn, "SELECT * FROM employee ORDER BY employee_id ASC"); 
-                        // using mysqli_query instead
-                        echo 
-                            "<table>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>E-mail</th>
-                                    <th>Tanggal Masuk</th>
-                                    <th>Gaji Pokok</th>
-                                    <th>Gaji Setelah Potongan</th>
-                                    <th>Potongan/Pajak</th>
-                                    <th>Export</th>
-                                </tr>";
-                                while($res = mysqli_fetch_array($result)) {        
-                                    echo 
-                                        "<tr>
-                                            <td>" . $res["employee_id"]. "</td>
-                                            <td>" . $res["name"]. "</td>
-                                            <td> " . $res["email"]. "</td>
-                                            <td> " . $res["join_date"]. "</td>
-                                            <td> " ."Rp ". $res["annual_basic_pay"]. "</td>
-                                            <td> " . "Rp ". $res["monthly_pay"]. "</td>
-                                            <td> " . $res["tax"]." %". "</td>
-                                            <td><a href=\"export1.php?employee_id=$res[employee_id]\">Export</a></td>
-                                        </tr>";
-                                }
-                                echo 
-                            "</table>";
-                    ?>
-                    
+                        // $query = "SELECT employee.name FROM employee RIGHT JOIN gaji ON employee.name = gaji.* ORDER BY employee_id ASC";
+                        // $result = mysql_query($query);
+                        $result = mysqli_query($conn, "SELECT employee_id,name FROM employee ORDER BY employee_id ASC RIGHT JOIN gaji ON employee.name = gaji.*");
+                        echo "<table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Periode</th>
+                                <th>Sisa Utang Jam Bulan Kemarin</th>
+                                <th>Utang Jam Bulan Ini</th>
+                                <th>Bayar Utang Jam Bulan Ini</th>
+                                <th>Sisa Utang Jam Bulan Ini</th>
+                                <th>Total Shift Bulan Ini</th>
+                                <th>Telat</th>
+                                <th>Total Hadir Disiplin</th>
+                                <th>Pokok</th>
+                                <th>Tj.Tetap</th>
+                                <th>Tj.BPJS</th>
+                                <th>Lembur Mingguan</th>
+                                <th>Lembur Tgl Merah</th>
+                                <th>Pengurangan BPJS</th>
+                                <th>Export</th>
+                            </tr>"; 
+                            while($res = mysqli_fetch_array($result)) {   
+                                echo "<tr>
+                                    <td>" . $res["employee_id"]. "</td>
+                                    <td>" . $res["name"]. "</td>
+                                    <td>" . "</td>
+                                    <td>" . "</td>
+                                    <td>" . "</td>
+                                    <td>" . "</td>
+                                    <td>" . "</td>
+                                    <td>" . "</td>
+                                    <td>" . "</td>
+                                    <td>" . "</td>
+                                    <td>" . "</td>
+                                    <td><a href=\"export1.php?employee_id=$res[employee_id]\">Export</a></td>
+                               </tr>";
+                               var_dump($res);
+                            }
+                        echo "</table>";
+                    ?>                
                 </div>
             </section>
-
         </div>
 
         <!-- Footer -->
         <div id="footer">
-
             <!-- Copyright -->
             <ul class="copyright">
-            <li>&copy; ZhofirMagang </li>
-            <li></a></li>
+                <li>&copy; All rights reserved.</li>
+                <li></a></li>
             </ul>
-
         </div>
 
         <!-- Scripts -->
@@ -214,8 +211,6 @@
         <script src="assets/js/jquery.scrollzer.min.js"></script>
         <script src="assets/js/skel.min.js"></script>
         <script src="assets/js/util.js"></script>
-        <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="assets/js/main.js"></script>
-
     </body>
 </html>
