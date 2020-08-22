@@ -152,7 +152,7 @@
                         include("connection.php");
                         // $query = "SELECT employee.name FROM employee RIGHT JOIN gaji ON employee.name = gaji.* ORDER BY employee_id ASC";
                         // $result = mysql_query($query);
-                        $result = mysqli_query($conn, "SELECT employee_id,name FROM employee ORDER BY employee_id ASC RIGHT JOIN gaji ON employee.name = gaji.*");
+                        $result = mysqli_query($conn, "SELECT * FROM gaji ORDER BY id ASC ");
                         echo "<table>
                             <tr>
                                 <th>ID</th>
@@ -173,22 +173,32 @@
                                 <th>Pengurangan BPJS</th>
                                 <th>Export</th>
                             </tr>"; 
-                            while($res = mysqli_fetch_array($result)) {   
-                                echo "<tr>
-                                    <td>" . $res["employee_id"]. "</td>
-                                    <td>" . $res["name"]. "</td>
-                                    <td>" . "</td>
-                                    <td>" . "</td>
-                                    <td>" . "</td>
-                                    <td>" . "</td>
-                                    <td>" . "</td>
-                                    <td>" . "</td>
-                                    <td>" . "</td>
-                                    <td>" . "</td>
-                                    <td>" . "</td>
-                                    <td><a href=\"export1.php?employee_id=$res[employee_id]\">Export</a></td>
+                            while($res = mysqli_fetch_array($result)) {
+                                // $result.forEach(myfunction);   
+                                // foreach($result as $res) {
+                                // echo $res;  
+                                // function myfunction($res , $result){
+                                // }
+                                echo "<tr>  
+                                    <td>" . $res["id"]. "</td>
+                                    <td>" . $res["nama"]. "</td>
+                                    <td>" . $res["periode"]. "</td>
+                                    <td>" . $res["sisa_utang_jam_bulan_sebelumnya"]. "</td>
+                                    <td>" . $res["utang_jam_bulan_ini"]. "</td>
+                                    <td>" . $res["bayar_utang_jam_bulan_ini"]. "</td>
+                                    <td>" . $res["sisa_utang_jam_bulan_ini"]. "</td>
+                                    <td>" . $res["telat"]. "</td>
+                                    <td>" . $res["sakit"]. "</td>
+                                    <td>" . $res["total_hadir"]. "</td>
+                                    <td>" . $res["pokok"]. "</td>
+                                    <td>" . $res["tj_tetap"]. "</td>
+                                    <td>" . $res["tj_bpjs"]. "</td>
+                                    <td>" . $res["lembur_mingguan"]. "</td>
+                                    <td>" . $res["lembur_tgl_merah"]. "</td>
+                                    <td>" . $res["pembayaran_bpjs"]. "</td>
+                                    <td><a href=\"export1.php?id=$res[id]\">Export</a></td>
                                </tr>";
-                               var_dump($res);
+                            //    var_dump($res);
                             }
                         echo "</table>";
                     ?>                
