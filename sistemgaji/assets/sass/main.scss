@@ -394,6 +394,25 @@
 		}
 	}
 
+	table,
+	td {
+		position: relative;
+		margin-left: 5px;
+		border: 1px solid black;
+		padding: 9px;
+		font-size: medium;
+	}
+
+	th {
+		background: black;
+		color: white;
+		border: 1px solid white;
+		text-transform: uppercase;
+		position: relative;
+		margin-left: -5px;
+		padding: 9px;
+	}
+
 /* Button */
 
 	input[type="button"],
@@ -1048,3 +1067,11 @@
 			}
 
 	}
+
+#success_message {
+	display: none;
+}
+
+.error {
+	color: #FF0000;
+}
