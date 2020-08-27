@@ -121,19 +121,40 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Nama</th>
-                                <th>E-mail</th>
-                                <th>Kota</th>
-                                <th>Tanggal Masuk</th>
-                                <th>Gaji Pokok</th>
+                                <th>Periode</th>
+                                <th>Sisa Utang Jam Bulan Kemarin</th>
+                                <th>Utang Jam Bulan Ini</th>
+                                <th>Bayar Utang Jam Bulan Ini</th>
+                                <th>Sisa Utang Jam Bulan Ini</th>
+                                <th>Sakit</th>
+                                <th>Telat</th>
+                                <th>Total Shift Bulan Ini</th>
+                                <th>Pokok</th>
+                                
+                                <th>Tj.Tetap</th>
+                                <th>Tj.BPJS</th>
+                                <th>Lembur Mingguan</th>
+                                <th>Lembur Tgl Merah</th>
+                                <th>Pengurangan BPJS</th>
                             </tr>";
                             while($res = mysqli_fetch_array($result)) { 		
                                 echo "<tr>
                                     <td>" . $res["employee_id"]. "</td>
                                     <td>" . $res["name"]. "</td>
-                                    <td> " . $res["email"]. "</td>
-                                    <td> " . $res["city"]. "</td>
-                                    <td> " . $res["join_date"]. "</td>
-                                    <td> " . "Rp ". $res["annual_basic_pay"]. "</td>
+                                    <td>" . $res["periode"]. "</td>
+                                    <td>" . $res["sisa_utang_jam_bulan_sebelumnya"]." Menit" . "</td>
+                                    <td>" . $res["utang_jam_bulan_ini"]." Menit". "</td>
+                                    <td>" . $res["bayar_utang_jam_bulan_ini"]." Menit". "</td>
+                                    <td>" . $res["sisa_utang_jam_bulan_ini"]." Menit" . "</td>
+                                    <td>" . $res["telat"]. "</td>
+                                    <td>" . $res["sakit"]. "</td>
+                                    <td>" . $res["total_hadir"]. "</td>
+                                    <td>" . "Rp ". $res["gj_pokok"]. "</td>
+                                    <td>" . "Rp ". $res["tj_tetap"]. "</td>
+                                    <td>" . "Rp ".$res["tj_bpjs"]. "</td>
+                                    <td>" . "Rp ".$res["lembur_mingguan"]. "</td>
+                                    <td>" . "Rp ".$res["lembur_tgl_merah"]. "</td>
+                                    <td>" . "Rp ".$res["pembayaran_bpjs"]. "</td>
                                 </tr>";
                             }
                         echo "</table>";
@@ -171,34 +192,42 @@
                                 <th>Lembur Mingguan</th>
                                 <th>Lembur Tgl Merah</th>
                                 <th>Pengurangan BPJS</th>
+                                <th>Total</th>
                                 <th>Export</th>
                             </tr>"; 
+                            $total = 0;
+                            // $total_hdr=30;
                             while($res = mysqli_fetch_array($result)) {
                                 // $result.forEach(myfunction);   
                                 // foreach($result as $res) {
                                 // echo $res;  
                                 // function myfunction($res , $result){
                                 // }
+                                $total = ($res["pokok"] + $res["tj_tetap"] + $res["tj_bpjs"] + $res["lembur_mingguan"] + $res["lembur_tgl_merah"]) - $res["pembayaran_bpjs"];
+                                $total_hdr = $res["telat"] - $res["sakit"];
+                                $sisa = $res["utang_jam_bulan_ini"] - $res["bayar_utang_jam_bulan_ini"];
                                 echo "<tr>  
                                     <td>" . $res["id"]. "</td>
                                     <td>" . $res["nama"]. "</td>
                                     <td>" . $res["periode"]. "</td>
-                                    <td>" . $res["sisa_utang_jam_bulan_sebelumnya"]. "</td>
-                                    <td>" . $res["utang_jam_bulan_ini"]. "</td>
-                                    <td>" . $res["bayar_utang_jam_bulan_ini"]. "</td>
-                                    <td>" . $res["sisa_utang_jam_bulan_ini"]. "</td>
+                                    <td>" . $res["sisa_utang_jam_bulan_sebelumnya"]." Menit" . "</td>
+                                    <td>" . $res["utang_jam_bulan_ini"]." Menit". "</td>
+                                    <td>" . $res["bayar_utang_jam_bulan_ini"]." Menit". "</td>
+                                    <td>" . $sisa." Menit". "</td>
                                     <td>" . $res["telat"]. "</td>
                                     <td>" . $res["sakit"]. "</td>
-                                    <td>" . $res["total_hadir"]. "</td>
-                                    <td>" . $res["pokok"]. "</td>
-                                    <td>" . $res["tj_tetap"]. "</td>
-                                    <td>" . $res["tj_bpjs"]. "</td>
-                                    <td>" . $res["lembur_mingguan"]. "</td>
-                                    <td>" . $res["lembur_tgl_merah"]. "</td>
-                                    <td>" . $res["pembayaran_bpjs"]. "</td>
+                                    <td>" . $total_hdr. "</td>
+                                    <td>" . "Rp ". $res["pokok"]. "</td>
+                                    <td>" . "Rp ". $res["tj_tetap"]. "</td>
+                                    <td>" . "Rp ".$res["tj_bpjs"]. "</td>
+                                    <td>" . "Rp ".$res["lembur_mingguan"]. "</td>
+                                    <td>" . "Rp ".$res["lembur_tgl_merah"]. "</td>
+                                    <td>" . "Rp ".$res["pembayaran_bpjs"]. "</td>
+                                    <td>" . "Rp ".$total. "</td>
                                     <td><a href=\"export1.php?id=$res[id]\">Export</a></td>
                                </tr>";
                             //    var_dump($res);
+                                $total = 0;
                             }
                         echo "</table>";
                     ?>                
