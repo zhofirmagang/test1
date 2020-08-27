@@ -2373,6 +2373,7 @@ td {
     margin-left: 5px;
     border: 1px solid black;
     padding: 9px;
+    font-size: medium;
 }
 
 th {
