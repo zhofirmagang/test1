@@ -13,67 +13,61 @@
     <?php
         include "connection.php";
 
-        $employee_id                        = 'employee_id';
-        $name                               = 'name';
+        $employee_id                        = rand(0, 9999999);
+        $name                               = 'name' . rand(0, 999999);
         $periode                            = 'periode';
-        $sisa_utang_jam_bulan_sebelumnya    = 'sisa_utang_jam_bulan_sebelumnya';
-        $utang_jam_bulan_ini                = 'utang_jam_bulan_ini';
-        $bayar_utang_jam_bulan_ini          = 'bayar_utang_jam_bulan_ini';
+        $sisa_utang_jam_bulan_sebelumnya    = '12';
+        $utang_jam_bulan_ini                = '12';
+        $bayar_utang_jam_bulan_ini          = '12';
 
-        $telat                              = 'telat';
-        $sakit                              = 'sakit';
-        $total_shift                        = 'total_shift';
+        $telat                              = '32';
+        $sakit                              = '32';
+        $total_shift                        = '32';
 
-        $gj_pokok                           = 'gj_pokok';
-        $tj_tetap                           = 'tj_tetap';
-        $tj_bpjs                            = 'tj_bpjs';
-        $lembur_mingguan                    = 'lembur_mingguan';
-        $lembur_tgl_merah                   = 'lembur_tgl_merah';
-        $pembayaran_bpjs                    = 'pembayaran_bpjs';
+        $gj_pokok                           = '45';
+        $tj_tetap                           = '45';
+        $tj_bpjs                            = '45';
+        $lembur_mingguan                    = '45';
+        $lembur_tgl_merah                   = '45';
+        $pembayaran_bpjs                    = '45';
 
+        $arr = array(
+            'employee_id'                       => $employee_id,
+            'name'                              => $name, 
+            'periode'                           => $periode, 
+            'sisa_utang_jam_bulan_sebelumnya'   => $sisa_utang_jam_bulan_sebelumnya,
+            'utang_jam_bulan_ini'               => $utang_jam_bulan_ini, 
+            'bayar_utang_jam_bulan_ini'         => $bayar_utang_jam_bulan_ini,
+            // 'sisa_utang_jam_bulan_ini'       => '', 
+            'sakit'                             => $sakit,
+            'telat'                             => $telat, 
+            'gj_pokok'                          => $gj_pokok,
+            'tj_tetap'                          => $tj_tetap,
+            'tj_bpjs'                           => $tj_bpjs,
+            'lembur_mingguan'                   => $lembur_mingguan,
+            'lembur_tgl_merah'                  => $lembur_tgl_merah,
+            'pembayaran_bpjs'                   => $pembayaran_bpjs
+        );
 
-        $sql = "INSERT INTO employee(
-                    employee_id,
-                    name, 
-                    periode, 
-                    sisa_utang_jam_bulan_sebelumnya,
-                    utang_jam_bulan_ini, 
-                    bayar_utang_jam_bulan_ini, 
-                    -- sisa_utang_jam_bulan_ini, 
-                    sakit,
-                    telat, 
-                    gj_pokok,
-                    tj_tetap,
-                    tj_bpjs,
-                    lembur_mingguan,
-                    lembur_tgl_merah,
-                    pembayaran_bpjs
-                )
-                VALUES(
-                    '$employee_id',
-                    '$name',
-                    '$periode',
-                    '$sisa_utang_jam_bulan_sebelumnya',
-                    '$utang_jam_bulan_ini',
-                    '$bayar_utang_jam_bulan_ini',
-                    
-                    '$sakit',
-                    '$telat',
-                    '$total_shift',
+        $table = 'employee';
+        $col = implode(', ', array_keys($arr));
+        $values = implode(', ', array_values(array_map("myfunction",$arr)));
+        
+        $sql = "INSERT INTO `".$table."` (".$col.") VALUES (".$values.")";
 
-                    '$gj_pokok',
-                    '$tj_tetap'
-                    '$tj_bpjs',
-                    '$lembur_mingguan',
-                    '$lembur_tgl_merah',
-                    '$pembayaran_bpjs',
-                )";
-                $conn->query($sql);
-                if ($conn->query($sql) === TRUE) {
-                    echo "New record created successfully";
-                } else {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
-                }
+        function myfunction($val)
+        {
+            return("'" . $val . "'");
+        }
+        
+        $conn->query($sql);
+
+      
+        if ($conn->query($sql) === TRUE) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . $conn->error;
+        }
         
     ?>
 
