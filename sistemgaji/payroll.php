@@ -129,15 +129,22 @@
                                 <th>Sakit</th>
                                 <th>Telat</th>
                                 <th>Total Shift Bulan Ini</th>
+                                <th>Total Hadir Disiplin</th>
                                 <th>Pokok</th>
-                                
                                 <th>Tj.Tetap</th>
                                 <th>Tj.BPJS</th>
                                 <th>Lembur Mingguan</th>
                                 <th>Lembur Tgl Merah</th>
                                 <th>Pengurangan BPJS</th>
+
+                                <th>Total</th>
+                                <th>Export</th>
                             </tr>";
-                            while($res = mysqli_fetch_array($result)) { 		
+                            $total = 0;
+                            while($res = mysqli_fetch_array($result)) {
+                                $total = ($res["gj_pokok"] + $res["tj_tetap"] + $res["tj_bpjs"] + $res["lembur_mingguan"] + $res["lembur_tgl_merah"]) - $res["pembayaran_bpjs"];
+                                $sisa = $res["utang_jam_bulan_ini"] - $res["bayar_utang_jam_bulan_ini"];
+                                $totalhdr = $res["total_shift"] - ($res["telat"] + $res["sakit"]);
                                 echo "<tr>
                                     <td>" . $res["employee_id"]. "</td>
                                     <td>" . $res["name"]. "</td>
@@ -145,16 +152,21 @@
                                     <td>" . $res["sisa_utang_jam_bulan_sebelumnya"]." Menit" . "</td>
                                     <td>" . $res["utang_jam_bulan_ini"]." Menit". "</td>
                                     <td>" . $res["bayar_utang_jam_bulan_ini"]." Menit". "</td>
-                                    <td>" . $res["sisa_utang_jam_bulan_ini"]." Menit" . "</td>
+                                    <td>" . $sisa." Menit". "</td>
+
                                     <td>" . $res["telat"]. "</td>
                                     <td>" . $res["sakit"]. "</td>
-                                    <td>" . $res["total_hadir"]. "</td>
+                                    <td>" . $res["total_shift"]. "</td>
+                                    <td>" . $totalhdr. "</td>
+
                                     <td>" . "Rp ". $res["gj_pokok"]. "</td>
                                     <td>" . "Rp ". $res["tj_tetap"]. "</td>
                                     <td>" . "Rp ".$res["tj_bpjs"]. "</td>
                                     <td>" . "Rp ".$res["lembur_mingguan"]. "</td>
                                     <td>" . "Rp ".$res["lembur_tgl_merah"]. "</td>
                                     <td>" . "Rp ".$res["pembayaran_bpjs"]. "</td>
+                                    <td>" . "Rp ".$total. "</td>
+                                    <td><a href=\"export1.php?id=$res[employee_id]\">Export</a></td>
                                 </tr>";
                             }
                         echo "</table>";
@@ -162,7 +174,8 @@
                 </div>
             </section>
 
-            <!-- Contact -->
+            <!--  
+            
             <section id="contact" class="four">
                 <div class="container">
                     <header>
@@ -214,9 +227,11 @@
                                     <td>" . $res["utang_jam_bulan_ini"]." Menit". "</td>
                                     <td>" . $res["bayar_utang_jam_bulan_ini"]." Menit". "</td>
                                     <td>" . $sisa." Menit". "</td>
+
                                     <td>" . $res["telat"]. "</td>
                                     <td>" . $res["sakit"]. "</td>
                                     <td>" . $total_hdr. "</td>
+
                                     <td>" . "Rp ". $res["pokok"]. "</td>
                                     <td>" . "Rp ". $res["tj_tetap"]. "</td>
                                     <td>" . "Rp ".$res["tj_bpjs"]. "</td>
@@ -234,6 +249,7 @@
                 </div>
             </section>
         </div>
+        -->
 
         <!-- Footer -->
         <div id="footer">
