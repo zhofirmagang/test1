@@ -11,61 +11,70 @@
 
 <body>
     <?php
-    include "connection.php";
+        include "connection.php";
 
-    $employee_id                        = 'employee_id';
-    $name                               = 'name';
-    $periode                            = 'periode';
-    $sisa_utang_jam_bulan_sebelumnya    = 'sisa_utang_jam_bulan_sebelumnya';
-    $utang_jam_bulan_ini                = 'utang_jam_bulan_ini';
-    $bayar_utang_jam_bulan_ini          = 'bayar_utang_jam_bulan_ini';
-    $sisa_utang_jam_bulan_ini           = 'sisa_utang_jam_bulan_ini';
-    $telat                              = 'telat';
-    $sakit                              = 'sakit';
-    $gj_pokok                           = 'gj_pokok';
-    $tj_tetap                           = 'tj_tetap';
-    $tj_bpjs                            = 'tj_bpjs';
-    $lembur_mingguan                    = 'lembur_mingguan';
-    $lembur_tgl_merah                   = 'lembur_tgl_merah';
-    $pembayaran_bpjs                    = 'pembayaran_bpjs';
+        $employee_id                        = 'employee_id';
+        $name                               = 'name';
+        $periode                            = 'periode';
+        $sisa_utang_jam_bulan_sebelumnya    = 'sisa_utang_jam_bulan_sebelumnya';
+        $utang_jam_bulan_ini                = 'utang_jam_bulan_ini';
+        $bayar_utang_jam_bulan_ini          = 'bayar_utang_jam_bulan_ini';
+
+        $telat                              = 'telat';
+        $sakit                              = 'sakit';
+        $total_shift                        = 'total_shift';
+
+        $gj_pokok                           = 'gj_pokok';
+        $tj_tetap                           = 'tj_tetap';
+        $tj_bpjs                            = 'tj_bpjs';
+        $lembur_mingguan                    = 'lembur_mingguan';
+        $lembur_tgl_merah                   = 'lembur_tgl_merah';
+        $pembayaran_bpjs                    = 'pembayaran_bpjs';
 
 
-    $sql = "INSERT INTO employee(
-                employee_id,
-                name, 
-                periode, 
-                sisa_utang_jam_bulan_sebelumnya,
-                utang_jam_bulan_ini, 
-                bayar_utang_jam_bulan_ini, 
-                sisa_utang_jam_bulan_ini, 
-                telat,            
-                sakit, 
-                gj_pokok,
-                tj_tetap,
-                tj_bpjs,
-                lembur_mingguan,
-                lembur_tgl_merah,
-                pembayaran_bpjs
-            )
-            VALUES(
-                '$employee_id',
-                '$name',
-                '$periode',
-                '$sisa_utang_jam_bulan_sebelumnya',
-                '$utang_jam_bulan_ini',
-                '$bayar_utang_jam_bulan_ini',
-                '$sisa_utang_jam_bulan_ini',
-                '$telat',
-                '$sakit',
-                '$gj_pokok',
-                '$tj_tetap'
-                '$tj_bpjs',
-                '$lembur_mingguan',
-                '$lembur_tgl_merah',
-                '$pembayaran_bpjs',
-            )";
+        $sql = "INSERT INTO employee(
+                    employee_id,
+                    name, 
+                    periode, 
+                    sisa_utang_jam_bulan_sebelumnya,
+                    utang_jam_bulan_ini, 
+                    bayar_utang_jam_bulan_ini, 
+                    -- sisa_utang_jam_bulan_ini, 
+                    sakit,
+                    telat, 
+                    gj_pokok,
+                    tj_tetap,
+                    tj_bpjs,
+                    lembur_mingguan,
+                    lembur_tgl_merah,
+                    pembayaran_bpjs
+                )
+                VALUES(
+                    '$employee_id',
+                    '$name',
+                    '$periode',
+                    '$sisa_utang_jam_bulan_sebelumnya',
+                    '$utang_jam_bulan_ini',
+                    '$bayar_utang_jam_bulan_ini',
+                    
+                    '$sakit',
+                    '$telat',
+                    '$total_shift',
 
-    $conn->query($sql);
+                    '$gj_pokok',
+                    '$tj_tetap'
+                    '$tj_bpjs',
+                    '$lembur_mingguan',
+                    '$lembur_tgl_merah',
+                    '$pembayaran_bpjs',
+                )";
+                $conn->query($sql);
+                if ($conn->query($sql) === TRUE) {
+                    echo "New record created successfully";
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+        
     ?>
 
 
@@ -127,6 +136,178 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input name="employee_id" placeholder="Employee Id" class="form-control" type="text" value="<?php echo $employee_id; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Nama Karyawan</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="name" placeholder="Nama" class="form-control" type="text" value="<?php echo $name; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Periode</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="periode" placeholder="Periode" class="form-control" type="text" value="<?php echo $periode; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Sisa Utang Jam Bulan Kemarin</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="sisa_utang_jam_bulan_sebelumnya" placeholder="Sisa Utang Jam Bulan Kemarin" class="form-control" type="text" value="<?php echo $sisa_utang_jam_bulan_sebelumnya; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Utang Jam Bulan Ini</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="utang_jam_bulan_ini" placeholder="Utang Jam Bulan Ini" class="form-control" type="text" value="<?php echo $utang_jam_bulan_ini; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Bayar Utang Jam Bulan Ini</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="bayar_utang_jam_bulan_ini" placeholder="Bayar Utang Jam Bulan Ini" class="form-control" type="text" value="<?php echo $bayar_utang_jam_bulan_ini; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Sisa Jam Bulan Ini</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="sisa_utang_jam_bulan_ini" placeholder="Sisa Jam Bulan Ini" class="form-control" type="text" value="<?php echo $sisa_utang_jam_bulan_ini; ?>">
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- Text input-->
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Sakit</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="sakit" placeholder="Sakit" class="form-control" type="text" value="<?php echo $sakit; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Telat</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="telat" placeholder="Telat" class="form-control" type="text" value="<?php echo $telat; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Total Shift Bulan Ini</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="total_shift" placeholder="Total Shift Bulan Ini" class="form-control" type="text" value="<?php echo $total_shift; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Gaji Pokok</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="gj_pokok" placeholder="Gaji Pokok" class="form-control" type="text" value="<?php echo $gj_pokok; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Tunjangan Tetap</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="" placeholder="Tunjangan Tetap" class="form-control" type="text" value="<?php echo $tj_tetap; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Tunjagan BPJS</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="tj_bpjs" placeholder="Tunjangan BPJS" class="form-control" type="text" value="<?php echo $tj_bpjs; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Lembur Mingguan</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="lembur_mingguan" placeholder="Lembur Mingguan" class="form-control" type="text" value="<?php echo $lembur_mingguan; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Lembur Tgl Merah</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="lembur_tgl_merah" placeholder="Lembur Tgl Merah" class="form-control" type="text" value="<?php echo $lembur_tgl_merah; ?>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label">Pembayaran BPJS</label>
+                        <div class="col-md-4 inputGroupContainer">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input name="pembayaran_bpjs" placeholder="Pembayaran BPJS" class="form-control" type="text" value="<?php echo $pembayaran_bpjs; ?>">
                             </div>
                         </div>
                     </div>
