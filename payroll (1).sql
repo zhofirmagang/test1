@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `employee` (
-  `employee_id` int(5) NOT NULL,
+  `employee_id` int(5) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(30) NOT NULL,
   `periode` varchar(30) NOT NULL,
   `sisa_utang_jam_bulan_sebelumnya` int(50) NOT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE `shift` (
 -- Indexes for table `employee`
 --
 ALTER TABLE `employee`
-  ADD PRIMARY KEY (`employee_id`),
+  -- ADD PRIMARY KEY (`employee_id`),
   ADD KEY `name` (`name`);
 
 --

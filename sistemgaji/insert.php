@@ -14,7 +14,7 @@
         include "connection.php";
 
         $employee_id                        = rand(0, 9999999);
-        $name                               = 'name' . rand(0, 999999);
+        $name                               = 'name' . $employee_id;
         $periode                            = 'periode';
         $sisa_utang_jam_bulan_sebelumnya    = '12';
         $utang_jam_bulan_ini                = '12';
@@ -32,7 +32,7 @@
         $pembayaran_bpjs                    = '45';
 
         $arr = array(
-            'employee_id'                       => $employee_id,
+            // 'employee_id'                       => $employee_id,
             'name'                              => $name, 
             'periode'                           => $periode, 
             'sisa_utang_jam_bulan_sebelumnya'   => $sisa_utang_jam_bulan_sebelumnya,
@@ -59,9 +59,6 @@
         {
             return("'" . $val . "'");
         }
-        
-        $conn->query($sql);
-
       
         if ($conn->query($sql) === TRUE) {
             echo "New record created successfully";
