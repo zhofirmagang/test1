@@ -25,16 +25,47 @@ if(isset($_POST['update']))
     $pembayaran_bpjs = mysqli_real_escape_string($conn,$_POST['pembayaran_bpjs']);
     
 	// checking empty fields
-	if(empty($name) || empty($gender) || empty($email) || empty($website) || empty($city) || empty($birth_date) || empty($join_date) || empty($province) || empty($basic_pay) || empty($zip_code) || empty($address) || empty($employee_id)) {	
-			
-		
-			echo "<font color='red'>field is empty.</font><br/>";
-	
-			
-	} else {	
+    if(
+        empty($name) || 
+        empty($employee_id) ||
+        empty($periode) ||
+        empty($sisa_utang_jam_bulan_sebelumnya) ||
+        empty($utang_jam_bulan_ini) ||
+        empty($bayar_utang_jam_bulan_ini) ||
+        empty($telat) ||
+        empty($sakit) ||
+        empty($total_shift) ||
+        empty($gj_pokok) ||
+        empty($tj_tetap) ||
+        empty($tj_bpjs) ||
+        empty($lembur_mingguan) ||
+        empty($lembur_tgl_merah) ||
+        empty($pembayaran_bpjs)) {	
+			echo "<font color='red'>field is empty.</font><br/>";		
+	    } else {	
 		//updating the table
-		$result = mysqli_query($conn, "UPDATE employee SET name='$name',gender='$gender',email='$email',birth_date='$birth_date',website='$website',employee_id='$employee_id',province='$province',postal_code='$zip_code'
-        ,address='$address',join_date='$join_date',birth_date='$birth_date',annual_basic_pay='$basic_pay' WHERE employee_id=$employee_id");
+		$result = mysqli_query(
+            $conn, "UPDATE employee SET 
+            name='$name',
+            employee_id='$employee_id',
+            periode = '$periode',
+
+            sisa_utang_jam_bulan_ini= '$sisa_utang_jam_bulan_ini',
+            utang_jam_bulan_ini = '$utang_jam_bulan_ini',
+            bayar_utang_jam_bulan_ini = '$bayar_utang_jam_bulan_ini',
+
+            telat ='$telat',
+            sakit = '$sakit',
+            total_shift= '$total_shift',
+
+            gj_pokok = '$gj_pokok',
+            tj_tetap = '$tj_tetap',
+            tj_bpjs = '$tj_bpjs',
+            lembur_mingguan = '$lembur_mingguan',
+            lembur_tgl_merah = '$lembur_tgl_merah',
+            pembayaran_bpjs = '$pembayaran_bpjs',
+
+        WHERE employee_id=$employee_id");
 		
 		//redirectig to the display page. In our case, it is 
 		header("Location: payroll.php#about");
