@@ -39,13 +39,13 @@
         <div class="bottom">
 
             <!-- Social Icons -->
-            <!-- <ul class="icons">
+            <ul class="icons">
                 <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
                 <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
                 <li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
                 <li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
                 <li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
-            </ul> -->
+            </ul>
 
         </div>
 
@@ -68,10 +68,53 @@
        include("connection.php");
         $result = mysqli_query($conn, "SELECT * FROM employee ORDER BY employee_id ASC"); // using mysqli_query instead
     //while($res = mysql_fetch_array($result)) { // mysql_fetch_array is deprecated, we need to use mysqli_fetch_array 
-        echo "<table><tr><th>ID</th><th>Nama</th><th>E-mail</th><th>Kota</th><th>Tanggal Masuk</th><th>Gaji Pokok</th><th>Ubah</th></tr>";
+        echo "<table><tr>
+        <th>ID</th>
+        <th>Nama</th>
+        <th>Periode</th>
+        <th>Sisa Utang Jam Bulan Kemarin</th>
+        <th>Utang Jam Bulan Ini</th>
+        <th>Bayar Utang Jam Bulan Ini</th>
+  
+        
+        <th>Sakit</th>
+        <th>Telat</th>
+        <th>Total Shift Bulan Ini</th>
+      
+
+        <th>Pokok</th>
+        <th>Tj.Tetap</th>
+        <th>Tj.BPJS</th>
+        <th>Lembur Mingguan</th>
+        <th>Lembur Tgl Merah</th>
+        <th>Pengurangan BPJS</th>
+       
+
+        <th>Edit</th>
+        </tr>";
 	while($res = mysqli_fetch_array($result)) { 		
         
-        echo "<tr><td>" . $res["employee_id"]. "</td><td>" . $res["name"]. "</td><td> " . $res["email"]. "</td><td> " . $res["city"]. "</td><td> " . $res["join_date"]. "</td><td> " . $res["annual_basic_pay"]. "</td><td><a href=\"edit.php?employee_id=$res[employee_id]\">Edit</a></td></tr>";
+        echo "<tr>
+        <td>" . $res["employee_id"]. "</td>
+                                    <td>" . $res["name"]. "</td>
+                                    <td>" . $res["periode"]. "</td>
+                                    <td>" . $res["sisa_utang_jam_bulan_sebelumnya"]." Menit" . "</td>
+                                    <td>" . $res["utang_jam_bulan_ini"]." Menit". "</td>
+                                    <td>" . $res["bayar_utang_jam_bulan_ini"]." Menit". "</td>
+                                    
+                                    <td>" . $res["telat"]. "</td>
+                                    <td>" . $res["sakit"]. "</td>
+                                    <td>" . $res["total_shift"]. "</td>
+                                    
+                                    <td>" . "Rp ". $res["gj_pokok"]. "</td>
+                                    <td>" . "Rp ". $res["tj_tetap"]. "</td>
+                                    <td>" . "Rp ".$res["tj_bpjs"]. "</td>
+                                    <td>" . "Rp ".$res["lembur_mingguan"]. "</td>
+                                    <td>" . "Rp ".$res["lembur_tgl_merah"]. "</td>
+                                    <td>" . "Rp ".$res["pembayaran_bpjs"]. "</td>
+                                    
+        <td><a href=\"edit.php?employee_id=$res[employee_id]\">Edit</a></td>
+        </tr>";
          }
         echo "</table>";
 	// 	echo "<td>".$res['employee_id']."</td>"."&nbsp";
@@ -94,7 +137,8 @@
 
         <!-- Copyright -->
         <ul class="copyright">
-        <li>&copy; ZhofirMagang</li>
+        <li>&copy; PMS. All rights reserved.</li>
+        <li>Design: Arsh</a></li>
         </ul>
 
     </div>
