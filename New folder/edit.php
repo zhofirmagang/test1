@@ -1,6 +1,6 @@
 <?php
 // including the database connection file
-include_once("connection.php");
+include_once("../sistemgaji/connection.php");
 
 if(isset($_POST['update']))
 {	
@@ -71,12 +71,15 @@ if(isset($_POST['update']))
 		header("Location: payroll.php#about");
 	}
 }
-?>
-<?php
+else {
     // if( isset($_GET['submit'])){
     //     $employee_id = $_GET['employee_id=employee_id'];
     // }
-    $employee_id = $_GET['employee_id=employee_id'];
+
+    // contoh: http://gajian.com/edit.php?employee_id=12
+    // $employee_id = $_GET['employee_id'];
+    // maka, nilai $employee_id = 12
+    $employee_id = $_GET['employee_id'];
 
     $result = mysqli_query($conn, "SELECT * FROM employee WHERE employee_id=$employee_id");
 
@@ -101,6 +104,7 @@ if(isset($_POST['update']))
             $pembayaran_bpjs                    = $res['pembayaran_bpjs'];
 
     }
+}
 ?>
 <html>
 <head>	
@@ -153,11 +157,17 @@ if(isset($_POST['update']))
     <div id="main">
             <div class="container">
 
-                <form class="well form-horizontal" action="edit.php" method="POST" id="contact_form">
+                <form class="well form-horizontal" action="edit.php?employee_id=<?php echo $employee_id; ?>" method="POST" id="contact_form">
                     <fieldset>
 
                         <!-- Form Name -->
                         <legend>Edit an Employee!</legend>
+
+                        <input type="hidden" name="employee_id" value="<?php echo $employee_id; ?>">
+
+                        <?php /*
+                        ini harusnya gak editable
+                        lihat atas kode ini sebegai referensi #employee_id dari LINE 8
 
                         <!-- Text input-->
 
@@ -170,6 +180,7 @@ if(isset($_POST['update']))
                             </div>
                         </div>
                     </div>
+                    */ ?>
 
                     <!-- Text input-->
 
@@ -332,14 +343,14 @@ if(isset($_POST['update']))
 
 
                         <!-- Success message -->
-                        
+                        <input type="hidden" name="update" value="Update">
 
                         <!-- Button -->
 						<br />
                         <div class="form-group">
                             <label class="col-md-4 control-label"></label>
                             <div class="col-md-4">
-                                <button <input type="submit" name="update" value="Update">Ubah <span class="glyphicon glyphicon-send"></span></button>
+                                <button type="submit">Ubah <span class="glyphicon glyphicon-send"></span></button>
                             </div>
                         </div>
 						<br />
